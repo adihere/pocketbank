@@ -18,7 +18,7 @@ const server = http.createServer((req, res) => {
 
     req.on('end', () => {
       const reqparse = JSON.parse(body);
-      const text-type = reqparse.text - type;
+      // const text - type = reqparse.text - type;
 
       if (reqparse.text - type === 'JSON') {
         console.log("Valid request formatting!");

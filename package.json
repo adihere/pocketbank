@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+     "start": "node src/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "@adi",
   "license": "ISC",
   "dependencies": {
     "@replit/database": "^2.0.2",
