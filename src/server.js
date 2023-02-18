@@ -8,6 +8,6 @@ const Database = require("@replit/database")
 
 
 const db = new Database()
-db.set("balance", 0).then(() => { });
+db.set("balance", 0).then(() => {});
 
-//db.get("balance").then(value => {});
+db.get("balance").then(value => {});
