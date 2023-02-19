@@ -1,15 +1,18 @@
 // express nodejs way
-
 const express = require('express');//Set up the express module
 const app = express()
 const port = 3000
 const Database = require("@replit/database")
 const db = new Database()
 
+// ADD CORS 
+var cors = require('cors');
+app.use(cors());
 
-// keep alive  - works with http - express?
-//var KeepAliveAgent = require('keep-alive-agent');
-//let agent = new KeepAliveAgent();
+// keep alive  - express
+var server = app.listen(port+1);
+server.keepAliveTimeout = 30000;
+
 
 app.get('/', (req, res) => {
   res.send('Pocket Money - Bank of AV!')
@@ -30,9 +33,9 @@ app.put('/setbal', (req, res) => {
 })
 
 
-app.put('/add', (req, res) => {
+app.put('/add10', async (req, res) => {
   let balance = await db.get("balance");
-  balance += req.body.addval;
+  balance += 10;
   res.send('Before execution of PUT request at /add' + balance)
   await db.set("balance", balance);
   res.send('After PUT request at /add' + balance)
@@ -45,5 +48,6 @@ app.put('/sub', (req, res) => {
 
 
 app.listen(port, () => {
+   
   console.log(`Example app listening on port ${port}`)
 })
