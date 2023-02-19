@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 app.get('/bal', async (req, res) => {
   //db.get("balance").then(value => { const balance = value; });
-  await db.set("balance", 10);
+  //await db.set("balance", 10);
   let balance = await db.get("balance");
   res.send('Hello Balance!' + balance);
 })
@@ -26,12 +26,16 @@ app.get('/bal', async (req, res) => {
 
 app.put('/setbal', (req, res) => {
   res.send('Got a PUT request at /setbal');
-  db.set("balance", 10).then(() => { });
+  db.set("balance", 100).then(() => { });
 })
 
 
 app.put('/add', (req, res) => {
-  res.send('Got a PUT request at /add')
+  let balance = await db.get("balance");
+  balance += req.body.addval;
+  res.send('Before execution of PUT request at /add' + balance)
+  await db.set("balance", balance);
+  res.send('After PUT request at /add' + balance)
 })
 
 app.put('/sub', (req, res) => {
