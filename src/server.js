@@ -13,9 +13,10 @@ app.use(cors());
 var server = app.listen(port+1);
 server.keepAliveTimeout = 30000;
 
+const balanceURL = 'https://pocketbank.adityavadaganadam.repl.co/bal';
 
 app.get('/', (req, res) => {
-  res.send('Pocket Money - Bank of AV!')
+  res.send('Pocket Money - Bank of AV')
 })
 
 
@@ -26,13 +27,12 @@ app.get('/bal', async (req, res) => {
   res.send('Hello Balance!' + balance);
 })
 
-
 app.put('/setbal', (req, res) => {
   res.send('Got a PUT request at /setbal');
   db.set("balance", 100).then(() => { });
 })
 
-
+// adds 10 to balance - hard coded
 app.put('/add10', async (req, res) => {
   let balance = await db.get("balance");
   balance += 10;
@@ -41,8 +41,23 @@ app.put('/add10', async (req, res) => {
   res.send('After PUT request at /add' + balance)
 })
 
-app.put('/sub', (req, res) => {
-  res.send('Got a PUT request at /sub')
+// subs 10 to balance - hard coded
+app.put('/sub10', async (req, res) => {
+  res.send('Got a PUT request at /sub');
+  let balance = await db.get("balance");
+  balance -= 10;
+  await db.set("balance", balance);
+  
+})
+
+
+// subs from balance - POST method 
+app.post('/spent', async (req, res) => {
+  res.send('Got a PUT request');
+  let balance = await db.get("balance");
+  balance -=  req.amount;
+  await db.set("balance", balance);
+  
 })
 
 
